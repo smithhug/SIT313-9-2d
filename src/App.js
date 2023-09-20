@@ -1,23 +1,31 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react'
+import { Container, Divider, Button } from 'semantic-ui-react'
+import JobType from './JobType';
+import Description from './Description';
+import Conditions from './Conditions';
+import Experience from './Experience';
 
 function App() {
+  const [selectedJobType, setSelectedJobType] = useState('');
+
+  const handleJobTypeChange = (newValue) => {
+    setSelectedJobType(newValue);
+  };
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <Container>
+        <JobType onSelectJobType={handleJobTypeChange}/>
+        <Description/>
+        <Divider horizontal></Divider>
+        <Conditions/>
+        <Divider horizontal></Divider>
+
+        {selectedJobType == 'true'
+        ? <Experience/>
+        : <p></p>
+        }
+        <Button floated='right' type='submit'>Post</Button>
+      </Container>
     </div>
   );
 }
