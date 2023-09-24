@@ -1,30 +1,19 @@
 import React, { useState } from 'react'
+import NavigationBar from './NavigationBar';
+import HomePage from './Home';
 import { Container, Divider, Button } from 'semantic-ui-react'
-import JobType from './JobType';
-import Description from './Description';
-import Conditions from './Conditions';
-import Experience from './Experience';
+import FormPage from './FormPage';
+import { Routes, Route } from 'react-router-dom';
 
 function App() {
-  const [selectedJobType, setSelectedJobType] = useState('');
-
-  const handleJobTypeChange = (newValue) => {
-    setSelectedJobType(newValue);
-  };
   return (
     <div>
+      <NavigationBar/>
       <Container>
-        <JobType onSelectJobType={handleJobTypeChange}/>
-        <Description/>
-        <Divider horizontal></Divider>
-        <Conditions/>
-        <Divider horizontal></Divider>
-
-        {selectedJobType == 'true'
-        ? <Experience/>
-        : <p></p>
-        }
-        <Button floated='right' type='submit'>Post</Button>
+        <Routes>
+          <Route path='/' element={<HomePage/>}/>
+          <Route path='/PostJob' element={<FormPage/>}/>
+        </Routes>
       </Container>
     </div>
   );

@@ -2,13 +2,24 @@ import React, {Component} from 'react'
 import { Header, Form } from 'semantic-ui-react'
 
 class Conditions extends Component {
-    state = {}
+    state = {
+        projectLength: '',
+        paymentMin: '',
+        paymentMax: '',
+        workingHours: '',
+    };
 
-    handleChange = (e, { value }) => this.setState({ value })
+    handleInputChange = (e) => {
+        const { name, value } = e.target;
+        this.setState({ [name]: value }, () => {
+          const { projectLength, paymentMin, paymentMax, workingHours } = this.state;
+          this.props.onChangeConditions(projectLength, paymentMin, paymentMax, workingHours);
+        });
+      };
 
     render() {
             
-        const { value } = this.state
+        const { projectLength, paymentMin, paymentMax, workingHours } = this.state
         return (
         <div>
             <Header as="h3" block>
@@ -17,7 +28,12 @@ class Conditions extends Component {
             <Form>
                 <Form.Field inline>
                     <label>Project length</label>
-                    <input/>
+                    <input
+                        type="text"
+                        name="projectLength"
+                        value={projectLength}
+                        onChange={this.handleInputChange}
+                    />
                 </Form.Field>
                 <Form.Group inline>
                     <Form.Field inline>
@@ -25,16 +41,31 @@ class Conditions extends Component {
                     </Form.Field>
                     <Form.Field inline>
                         <label>Min</label>
-                        <input/>
+                        <input
+                            type="number"
+                            name="paymentMin"
+                            value={paymentMin}
+                            onChange={this.handleInputChange}
+                        />
                     </Form.Field>
                     <Form.Field inline>
                         <label>Max</label>
-                        <input/>
+                        <input
+                            type="number"
+                            name="paymentMax"
+                            value={paymentMax}
+                            onChange={this.handleInputChange}
+                        />
                     </Form.Field>
                 </Form.Group>
                 <Form.Field inline fluid>
                     <label>Working Hours</label>
-                    <input/>
+                    <input
+                        type="number"
+                        name="workingHours"
+                        value={workingHours}
+                        onChange={this.handleInputChange}
+                    />
                 </Form.Field>
             </Form>
         </div>
