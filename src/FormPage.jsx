@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import { Container, Divider, Button } from 'semantic-ui-react';
+import { Link } from 'react-router-dom';
 import JobType from './JobType';
 import Description from './Description';
 import Conditions from './Conditions';
 import Experience from './Experience';
 import ImageUpload from './ImageUpload';
+import CheckoutPrompt from './CheckoutForm';
 import { db, storage } from '../src/utils/firebase';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { doc, setDoc } from 'firebase/firestore';
@@ -78,7 +80,12 @@ function FormPage() {
         <Divider horizontal />
 
         {selectedJobType === 'true' ? (
-          <Experience onChangeExperience={(experienceIn, experienceTime) => setPostData({...postData, experienceIn, experienceTime})}/>
+          <div>
+            <Experience onChangeExperience={(experienceIn, experienceTime) => setPostData({...postData, experienceIn, experienceTime})}/>
+            <Link to="/Checkout">
+              <Button primary>Pay</Button>
+            </Link>
+          </div>
         ) : (
           <p></p>
         )}
